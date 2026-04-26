@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="LessNic helps you quietly reduce nicotine pouch use, one day at a time. A calm, science-backed app that meets you where you are." />
+  <meta property="og:title" content="LessNic — Less every day, quietly." />
+  <meta property="og:description" content="A calm app that helps you reduce nicotine pouch use, one day at a time." />
+  <meta property="og:type" content="website" />
+  <title>LessNic — Less every day, quietly.</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #F5F1EA;
+      --bg-alt: #EBE5DA;
+      --ink: #1A1A1A;
+      --muted: #6B6B6B;
+      --primary: #2C4A8F;
+      --primary-dark: #1A2F5C;
+      --accent: #C97B5A;
+      --card: #FFFFFF;
+      --border: #E0DAD0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Nav */
+    nav {
+      padding: 24px 0;
+      position: sticky;
+      top: 0;
+      background: rgba(245, 241, 234, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 10;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+    nav.scrolled { border-bottom-color: var(--border); }
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .logo span { color: var(--primary); }
+    .nav-links a {
+      margin-left: 28px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* Hero */
+    .hero {
+      padding: 80px 0 100px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 64px;
+      line-height: 1.05;
+      letter-spacing: -2px;
+      font-weight: 700;
+      max-width: 780px;
+      margin: 0 auto 24px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--primary);
+    }
+    .hero .sub {
+      font-size: 20px;
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0 auto 40px;
+    }
+    .cta-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-block;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 16px;
+      text-decoration: none;
+      transition: transform 0.15s, background 0.15s;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); }
+    .btn-secondary {
+      background: transparent;
+      color: var(--ink);
+      border: 1.5px solid var(--border);
+    }
+    .btn-secondary:hover { border-color: var(--ink); }
+
+    .hero-visual {
+      margin: 60px auto 0;
+      max-width: 320px;
+      aspect-ratio: 9 / 16;
+      background: linear-gradient(180deg, #FFF 0%, var(--bg-alt) 100%);
+      border-radius: 36px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 40px 24px;
+      box-shadow: 0 30px 60px -20px rgba(0,0,0,0.12);
+    }
+    .machine {
+      width: 180px;
+      height: 220px;
+      position: relative;
+    }
+    .globe {
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.9), rgba(255,255,255,0.3) 60%, transparent 100%), #2C4A8F;
+      border: 4px solid #1A2F5C;
+      overflow: hidden;
+    }
+    .pouch {
+      position: absolute;
+      width: 18px; height: 12px;
+      background: #F5F1EA;
+      border-radius: 50%;
+      box-shadow: inset 0 -2px 0 rgba(0,0,0,0.1);
+    }
+    .pouch.p1 { top: 20px; left: 30px; }
+    .pouch.p2 { top: 40px; left: 90px; }
+    .pouch.p3 { top: 70px; left: 50px; }
+    .pouch.p4 { top: 90px; left: 110px; }
+    .pouch.p5 { top: 110px; left: 30px; }
+    .base {
+      position: absolute;
+      bottom: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 200px; height: 60px;
+      background: var(--accent);
+      border-radius: 12px 12px 8px 8px;
+    }
+    .machine-tagline {
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    /* Section */
+    section { padding: 80px 0; }
+    section.alt { background: var(--bg-alt); }
+    .section-title {
+      font-size: 40px;
+      letter-spacing: -1px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      max-width: 620px;
+    }
+    .section-sub {
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 620px;
+      margin-bottom: 56px;
+    }
+
+    /* Feature grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+    }
+    .card-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: var(--bg-alt);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+    .card h3 { font-size: 19px; margin-bottom: 8px; }
+    .card p { color: var(--muted); font-size: 15px; }
+
+    /* How it works */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 32px;
+      margin-top: 40px;
+    }
+    .step {
+      position: relative;
+      padding-top: 60px;
+    }
+    .step-num {
+      position: absolute;
+      top: 0; left: 0;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 18px;
+    }
+    .step h3 { font-size: 19px; margin-bottom: 8px; }
+    .step p { color: var(--muted); font-size: 15px; }
+
+    /* FAQ */
+    details {
+      border-bottom: 1px solid var(--border);
+      padding: 20px 0;
+    }
+    summary {
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 17px;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after {
+      content: '+';
+      font-size: 24px;
+      color: var(--muted);
+      transition: transform 0.2s;
+    }
+    details[open] summary::after { transform: rotate(45deg); }
+    details p {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    /* CTA banner */
+    .cta-banner {
+      background: var(--primary);
+      color: #fff;
+      border-radius: 24px;
+      padding: 64px 32px;
+      text-align: center;
+      margin: 80px 0;
+    }
+    .cta-banner h2 {
+      font-size: 36px;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+    .cta-banner p {
+      opacity: 0.85;
+      margin-bottom: 28px;
+      font-size: 17px;
+    }
+    .cta-banner .btn-primary {
+      background: #fff;
+      color: var(--primary);
+    }
+    .cta-banner .btn-primary:hover { background: #F5F1EA; }
+
+    /* Footer */
+    footer {
+      padding: 48px 0 32px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 14px;
+    }
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+      margin-left: 24px;
+    }
+    footer a:hover { color: var(--ink); }
+    footer .footer-links a:first-child { margin-left: 0; }
+
+    @media (max-width: 700px) {
+      .hero { padding: 48px 0 64px; }
+      .hero h1 { font-size: 42px; letter-spacing: -1px; }
+      .hero .sub { font-size: 17px; }
+      .section-title { font-size: 30px; }
+      section { padding: 56px 0; }
+      .cta-banner { padding: 48px 24px; }
+      .cta-banner h2 { font-size: 26px; }
+      .nav-links a { margin-left: 16px; font-size: 14px; }
+      footer .container { flex-direction: column; }
+      footer a { margin-left: 0; margin-right: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <nav id="nav">
+    <div class="container">
+      <a href="/" class="logo">Less<span>Nic</span></a>
+      <div class="nav-links">
+        <a href="#how">How it works</a>
+        <a href="#features">Features</a>
+        <a href="#faq">FAQ</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <h1>Less every day, <em>quietly.</em></h1>
+      <p class="sub">
+        A calm app that helps you reduce nicotine pouch use, one day at a time —
+        no shame, no streaks, no pressure. Just slightly less than yesterday.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#cta">Join the waitlist</a>
+        <a class="btn btn-secondary" href="#how">How it works</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="how" class="alt">
+    <div class="container">
+      <h2 class="section-title">How it works</h2>
+      <p class="section-sub">Three simple ideas. The hard part is hidden inside.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>Open the app first</h3>
+          <p>Before you reach for a pouch, open LessNic and dispense one. The on-screen pouch is your permission slip.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>Then take the real one</h3>
+          <p>That small pause — opening the app, watching it dispense — is where the work happens. Don't skip it.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>The machine learns</h3>
+          <p>Over time, your daily allowance gently shrinks. You won't notice the math. You'll notice the change.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="container">
+      <h2 class="section-title">Built for the messy reality of quitting.</h2>
+      <p class="section-sub">Most quit apps assume willpower is enough. We don't.</p>
+      <div class="grid">
+        <div class="card">
+          <div class="card-icon">🌙</div>
+          <h3>No streaks, no shame</h3>
+          <p>Bad days happen. The algorithm absorbs them and adjusts — there's no streak to break and no scarlet letter.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🌬️</div>
+          <h3>Friction, not lectures</h3>
+          <p>When you're craving past your allowance, a 24-second breathing exercise is offered. Skip if you must — it's still your call.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🔒</div>
+          <h3>Your data stays local</h3>
+          <p>Everything lives on your phone. No cloud, no tracking, no selling data to insurers. We literally can't see your usage.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">📉</div>
+          <h3>Hidden taper</h3>
+          <p>The reduction algorithm is intentionally hidden. If you knew the target, you'd game it. Trust the machine.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">⏱️</div>
+          <h3>30-day free trial</h3>
+          <p>A full month to see if it works. No credit card to start. Cancel any time in iOS Settings.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🧘</div>
+          <h3>Calm, not clinical</h3>
+          <p>No graphs of "time wasted" or "money lost." No guilt loops. Just a quiet companion that's on your side.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="alt">
+    <div class="container">
+      <h2 class="section-title">Questions, answered.</h2>
+      <p class="section-sub">If yours isn't here, email us.</p>
+
+      <details>
+        <summary>Is this medical advice?</summary>
+        <p>No. LessNic is a self-help tool, not a substitute for medical care. If you're struggling with addiction or have health concerns, please talk to a healthcare provider.</p>
+      </details>
+      <details>
+        <summary>Why don't you show me my daily limit?</summary>
+        <p>Because the moment you know the number, you optimize against it. The taper works best when you respond to your own cravings — not to a target. Trust the gradient, not the gauge.</p>
+      </details>
+      <details>
+        <summary>What if I have a bad day and use way more?</summary>
+        <p>The algorithm adjusts. It assumes humans are humans. There's no penalty, no streak loss, no guilt screen.</p>
+      </details>
+      <details>
+        <summary>Does my data leave my phone?</summary>
+        <p>Only the bare minimum needed for sign-in (your Apple ID identifier) and to validate your subscription with Apple. Usage data — every dispense, every craving — stays local. Period.</p>
+      </details>
+      <details>
+        <summary>How much does it cost?</summary>
+        <p>30 days free, then a small monthly subscription. We'll publish exact pricing when we launch on the App Store.</p>
+      </details>
+      <details>
+        <summary>iPhone only?</summary>
+        <p>For now, yes. Android is on the roadmap.</p>
+      </details>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="cta-banner" id="cta">
+      <h2>Ready to use a little less?</h2>
+      <p>LessNic launches on the App Store soon. Get notified when it does.</p>
+      <a class="btn btn-primary" href="mailto:support@lessnic.app?subject=Waitlist">Join the waitlist</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div>© 2026 LessNic. Less every day, quietly.</div>
+      <div class="footer-links">
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="mailto:support@lessnic.app">Support</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 12);
+    });
+  </script>
+</body>
+</html>
