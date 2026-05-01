@@ -426,16 +426,14 @@
       </p>
 
       <form class="support-form" onsubmit="return sendSupport(event)">
-        <div class="support-row">
-          <label class="support-field">
-            <span>Your email <span class="opt">(optional)</span></span>
-            <input type="email" id="sup-email" placeholder="you@example.com" autocomplete="email" />
-          </label>
-          <label class="support-field">
-            <span>Subject</span>
-            <input type="text" id="sup-subject" placeholder="What&rsquo;s up?" required />
-          </label>
-        </div>
+        <label class="support-field">
+          <span>Your email <span class="opt">(optional)</span></span>
+          <input type="email" id="sup-email" placeholder="you@example.com" autocomplete="email" />
+        </label>
+        <label class="support-field">
+          <span>Subject</span>
+          <input type="text" id="sup-subject" placeholder="What&rsquo;s up?" required />
+        </label>
         <label class="support-field">
           <span>Message</span>
           <textarea id="sup-body" rows="6" placeholder="Tell us what&rsquo;s on your mind…" required></textarea>
