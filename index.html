@@ -104,6 +104,33 @@
     .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 12px 24px -8px rgba(27, 67, 50, 0.55); }
     .btn-secondary { background: transparent; color: var(--ink); border: 1.5px solid var(--border); }
     .btn-secondary:hover { border-color: var(--primary); color: var(--primary); }
+    .btn-disabled { background: var(--primary); color: #fff; opacity: 0.65; cursor: not-allowed; box-shadow: none; }
+    .btn-disabled:hover { background: var(--primary); transform: none; box-shadow: none; }
+    .cta-banner .btn-disabled { background: #fff; color: var(--primary-dark); opacity: 0.7; }
+
+    .support-form { max-width: 680px; margin-top: 8px; }
+    .support-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .support-field { display: block; margin-top: 16px; }
+    .support-field span { display: block; font-size: 13px; font-weight: 600; color: var(--muted); margin-bottom: 6px; letter-spacing: 0.2px; }
+    .support-field span .opt { font-weight: 400; color: var(--muted); opacity: 0.75; }
+    .support-field input, .support-field textarea {
+      width: 100%; padding: 12px 14px;
+      background: var(--card); color: var(--ink);
+      border: 1.5px solid var(--border); border-radius: 12px;
+      font-size: 15px; font-family: inherit; line-height: 1.5;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .support-field textarea { resize: vertical; min-height: 140px; }
+    .support-field input:focus, .support-field textarea:focus {
+      outline: none; border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(82, 183, 136, 0.18);
+    }
+    .support-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+    .support-note { color: var(--muted); font-size: 13px; margin-top: 16px; }
+    .support-note a { color: var(--primary); text-decoration: none; font-weight: 600; }
+    @media (max-width: 600px) {
+      .support-row { grid-template-columns: 1fr; gap: 0; }
+    }
 
     .hero-badge {
       display: inline-flex; align-items: center; gap: 8px;
@@ -243,6 +270,8 @@
         <a href="#how">How it works</a>
         <a href="#features">Why it's different</a>
         <a href="#faq">FAQ</a>
+        <a href="#support">Support</a>
+        <a href="privacy.html">Privacy</a>
       </div>
     </div>
   </nav>
@@ -250,14 +279,14 @@
   <header class="hero">
     <div class="container">
       <img src="logo.png" alt="LessNic" class="hero-logo" />
-      <div class="hero-badge">Now on the App Store</div>
+      <div class="hero-badge">Coming soon to the App Store</div>
       <h1>Less every day, <em>quietly.</em></h1>
       <p class="sub">
         A calm iOS app that helps you reduce nicotine pouch use, one day at a time —
         no shame, no streaks, no pressure. Just slightly less than yesterday.
       </p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="https://apps.apple.com/app/id6763950681">Download for iPhone</a>
+        <span class="btn btn-primary btn-disabled" aria-disabled="true">Coming soon</span>
         <a class="btn btn-secondary" href="#how">How it works</a>
       </div>
     </div>
@@ -271,12 +300,12 @@
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
-          <h3>Open the app first</h3>
+          <h3>Dispense one</h3>
           <p>Before you reach for a pouch, open LessNic and dispense one. The on-screen pouch is your permission slip.</p>
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <h3>Then take the real one</h3>
+          <h3>Take one</h3>
           <p>That small pause — opening the app, watching it dispense — is where the work happens. Don't skip it.</p>
         </div>
         <div class="step">
@@ -388,11 +417,46 @@
     </div>
   </section>
 
+  <section id="support" class="alt">
+    <div class="container">
+      <div class="section-eyebrow">Support</div>
+      <h2 class="section-title">We read every message.</h2>
+      <p class="section-sub">
+        Questions, feedback, or running into something weird? Send us a note and we&rsquo;ll get back to you.
+      </p>
+
+      <form class="support-form" onsubmit="return sendSupport(event)">
+        <div class="support-row">
+          <label class="support-field">
+            <span>Your email <span class="opt">(optional)</span></span>
+            <input type="email" id="sup-email" placeholder="you@example.com" autocomplete="email" />
+          </label>
+          <label class="support-field">
+            <span>Subject</span>
+            <input type="text" id="sup-subject" placeholder="What&rsquo;s up?" required />
+          </label>
+        </div>
+        <label class="support-field">
+          <span>Message</span>
+          <textarea id="sup-body" rows="6" placeholder="Tell us what&rsquo;s on your mind…" required></textarea>
+        </label>
+        <div class="support-actions">
+          <button type="submit" class="btn btn-primary">Send via email</button>
+          <a class="btn btn-secondary" href="mailto:lessnic.support@gmail.com">Or just email us directly</a>
+        </div>
+        <p class="support-note">
+          This opens your email app with the message pre-filled to
+          <a href="mailto:lessnic.support@gmail.com">lessnic.support@gmail.com</a>. Nothing is sent through this site.
+        </p>
+      </form>
+    </div>
+  </section>
+
   <div class="container">
     <div class="cta-banner" id="cta">
       <h2>Ready to use a little less?</h2>
       <p>One quiet step today. The next one is easier.</p>
-      <a class="btn btn-primary" href="https://apps.apple.com/app/id6763950681">Download for iPhone</a>
+      <span class="btn btn-primary btn-disabled" aria-disabled="true">Coming soon</span>
     </div>
   </div>
 
@@ -415,6 +479,30 @@
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 12);
     });
+
+    // Support form: builds a mailto: link with the user's subject and
+    // body pre-filled. We don't post to a server because this site is
+    // static (GitHub Pages); opening the user's mail client is the
+    // most reliable, dependency-free path. If the email field is
+    // filled in, we include it as a "Reply-To:" line in the body so
+    // we can reply even when the mail app uses a different default
+    // From address.
+    function sendSupport(e) {
+      e.preventDefault();
+      const subject = document.getElementById('sup-subject').value.trim();
+      const body = document.getElementById('sup-body').value.trim();
+      const email = document.getElementById('sup-email').value.trim();
+      const lines = [body];
+      if (email) {
+        lines.push('', '---', 'Reply to: ' + email);
+      }
+      const url =
+        'mailto:lessnic.support@gmail.com'
+        + '?subject=' + encodeURIComponent(subject || 'LessNic support')
+        + '&body=' + encodeURIComponent(lines.join('\n'));
+      window.location.href = url;
+      return false;
+    }
   </script>
 </body>
 </html>
